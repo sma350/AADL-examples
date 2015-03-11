@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="ASCII"?>
-<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" xmi:id="_RfBWQMfuEeSePaEemxxRWw" name="main_i_Instance" category="system">
-  <componentInstance xmi:id="_RfPYsMfuEeSePaEemxxRWw" name="processor_generic_bus" srcConnectionInstance="_Rfq2gMfuEeSePaEemxxRWw _Rfq2gsfuEeSePaEemxxRWw _Rfq2hMfuEeSePaEemxxRWw" category="bus">
-    <ownedPropertyAssociation xmi:id="_RhEksMfuEeSePaEemxxRWw">
+<instance:SystemInstance xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aadl2="http://aadl.info/AADL/2.0" xmlns:instance="http://aadl.info/AADL/2.0/instance" xmi:id="_vcl8QMf5EeSePaEemxxRWw" name="main_i_Instance" category="system">
+  <componentInstance xmi:id="_vcnxcMf5EeSePaEemxxRWw" name="processor_generic_bus" srcConnectionInstance="_vcsp8Mf5EeSePaEemxxRWw _vcsp8sf5EeSePaEemxxRWw _vcsp9Mf5EeSePaEemxxRWw" category="bus">
+    <ownedPropertyAssociation xmi:id="_vdKkAMf5EeSePaEemxxRWw">
       <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Transmission_Time"/>
-      <ownedValue xmi:id="_RhGZ4MfuEeSePaEemxxRWw">
-        <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_RhGZ4cfuEeSePaEemxxRWw">
-          <ownedFieldValue xmi:id="_RhGZ4sfuEeSePaEemxxRWw">
+      <ownedValue xmi:id="_vdLLEMf5EeSePaEemxxRWw">
+        <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_vdLLEcf5EeSePaEemxxRWw">
+          <ownedFieldValue xmi:id="_vdLLEsf5EeSePaEemxxRWw">
             <property href="../../Plugin_Resources/Communication_Properties.aadl#null.Fixed"/>
-            <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhGZ48fuEeSePaEemxxRWw">
-              <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhGZ5MfuEeSePaEemxxRWw" value="10">
+            <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdLLE8f5EeSePaEemxxRWw">
+              <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdLLFMf5EeSePaEemxxRWw" value="10">
                 <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
               </minimum>
-              <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhGZ5cfuEeSePaEemxxRWw" value="80">
+              <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdLLFcf5EeSePaEemxxRWw" value="80">
                 <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
               </maximum>
             </ownedValue>
           </ownedFieldValue>
-          <ownedFieldValue xmi:id="_RhHA8MfuEeSePaEemxxRWw">
+          <ownedFieldValue xmi:id="_vdLLFsf5EeSePaEemxxRWw">
             <property href="../../Plugin_Resources/Communication_Properties.aadl#null.PerByte"/>
-            <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhHA8cfuEeSePaEemxxRWw">
-              <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhHA8sfuEeSePaEemxxRWw" value="20">
+            <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdLLF8f5EeSePaEemxxRWw">
+              <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdLLGMf5EeSePaEemxxRWw" value="20">
                 <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
               </minimum>
-              <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhHA88fuEeSePaEemxxRWw" value="30">
+              <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdLLGcf5EeSePaEemxxRWw" value="30">
                 <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
               </maximum>
             </ownedValue>
@@ -33,27 +33,35 @@
     <subcomponent xsi:type="aadl2:BusSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.processor_generic_bus"/>
     <index>0</index>
   </componentInstance>
-  <componentInstance xmi:id="_RfTDEMfuEeSePaEemxxRWw" name="sil00" category="process">
-    <ownedPropertyAssociation xmi:id="_RhI2IMfuEeSePaEemxxRWw">
+  <componentInstance xmi:id="_vcoYgMf5EeSePaEemxxRWw" name="sil00" category="process">
+    <ownedPropertyAssociation xmi:id="_vdLyIMf5EeSePaEemxxRWw">
       <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Processor_Binding"/>
-      <ownedValue xmi:id="_RhI2IcfuEeSePaEemxxRWw">
-        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_RhI2IsfuEeSePaEemxxRWw">
-          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_RhI2I8fuEeSePaEemxxRWw" referencedInstanceObject="_RfaX0MfuEeSePaEemxxRWw"/>
+      <ownedValue xmi:id="_vdLyIcf5EeSePaEemxxRWw">
+        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_vdLyIsf5EeSePaEemxxRWw">
+          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_vdLyI8f5EeSePaEemxxRWw" referencedInstanceObject="_vcpmo8f5EeSePaEemxxRWw"/>
         </ownedValue>
       </ownedValue>
     </ownedPropertyAssociation>
-    <featureInstance xmi:id="_RfU4QMfuEeSePaEemxxRWw" name="pout" srcConnectionInstance="_RfsEoMfuEeSePaEemxxRWw" dstFlowSpec="_RfVfUMfuEeSePaEemxxRWw" direction="out">
+    <featureInstance xmi:id="_vcoYgcf5EeSePaEemxxRWw" name="pout" srcConnectionInstance="_vctRAMf5EeSePaEemxxRWw" dstFlowSpec="_vcoYgsf5EeSePaEemxxRWw" direction="out">
+      <ownedPropertyAssociation xmi:id="_vdNnUMf5EeSePaEemxxRWw">
+        <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Source_Data_Size"/>
+        <ownedValue xmi:id="_vdNnUcf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_vdNnUsf5EeSePaEemxxRWw" value="50">
+            <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Size_Units.Bytes"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
       <feature xsi:type="aadl2:DataPort" href="../packages/simplified_example.aadl#simplified_example::sil_00.pout"/>
     </featureInstance>
-    <flowSpecification xmi:id="_RfVfUMfuEeSePaEemxxRWw" name="flow_sil0" destination="_RfU4QMfuEeSePaEemxxRWw">
-      <ownedPropertyAssociation xmi:id="_RhL5cMfuEeSePaEemxxRWw">
+    <flowSpecification xmi:id="_vcoYgsf5EeSePaEemxxRWw" name="flow_sil0" destination="_vcoYgcf5EeSePaEemxxRWw">
+      <ownedPropertyAssociation xmi:id="_vdNnU8f5EeSePaEemxxRWw">
         <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Latency"/>
-        <ownedValue xmi:id="_RhMggMfuEeSePaEemxxRWw">
-          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhMggcfuEeSePaEemxxRWw">
-            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhMggsfuEeSePaEemxxRWw" value="1">
+        <ownedValue xmi:id="_vdNnVMf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdNnVcf5EeSePaEemxxRWw">
+            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdNnVsf5EeSePaEemxxRWw" value="1">
               <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
             </minimum>
-            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhMgg8fuEeSePaEemxxRWw" value="3">
+            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdNnV8f5EeSePaEemxxRWw" value="3">
               <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
             </maximum>
           </ownedValue>
@@ -64,30 +72,46 @@
     <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.sil00"/>
     <index>0</index>
   </componentInstance>
-  <componentInstance xmi:id="_RfWGYMfuEeSePaEemxxRWw" name="sil1" category="process">
-    <ownedPropertyAssociation xmi:id="_RhNHkMfuEeSePaEemxxRWw">
+  <componentInstance xmi:id="_vco_kMf5EeSePaEemxxRWw" name="sil1" category="process">
+    <ownedPropertyAssociation xmi:id="_vdOOYMf5EeSePaEemxxRWw">
       <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Processor_Binding"/>
-      <ownedValue xmi:id="_RhNuoMfuEeSePaEemxxRWw">
-        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_RhNuocfuEeSePaEemxxRWw">
-          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_RhNuosfuEeSePaEemxxRWw" referencedInstanceObject="_RfcNAMfuEeSePaEemxxRWw"/>
+      <ownedValue xmi:id="_vdOOYcf5EeSePaEemxxRWw">
+        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_vdOOYsf5EeSePaEemxxRWw">
+          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_vdOOY8f5EeSePaEemxxRWw" referencedInstanceObject="_vcpmo8f5EeSePaEemxxRWw"/>
         </ownedValue>
       </ownedValue>
     </ownedPropertyAssociation>
-    <featureInstance xmi:id="_RfXUgMfuEeSePaEemxxRWw" name="pin" dstConnectionInstance="_RfsEoMfuEeSePaEemxxRWw" srcFlowSpec="_RfX7kcfuEeSePaEemxxRWw">
+    <featureInstance xmi:id="_vco_kcf5EeSePaEemxxRWw" name="pin" dstConnectionInstance="_vctRAMf5EeSePaEemxxRWw" srcFlowSpec="_vco_k8f5EeSePaEemxxRWw">
+      <ownedPropertyAssociation xmi:id="_vdO1cMf5EeSePaEemxxRWw">
+        <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Source_Data_Size"/>
+        <ownedValue xmi:id="_vdPcgMf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_vdPcgcf5EeSePaEemxxRWw" value="50">
+            <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Size_Units.Bytes"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
       <feature xsi:type="aadl2:DataPort" href="../packages/simplified_example.aadl#simplified_example::sil_01.pin"/>
     </featureInstance>
-    <featureInstance xmi:id="_RfX7kMfuEeSePaEemxxRWw" name="pout" srcConnectionInstance="_RfsrsMfuEeSePaEemxxRWw" dstFlowSpec="_RfX7kcfuEeSePaEemxxRWw" direction="out">
+    <featureInstance xmi:id="_vco_ksf5EeSePaEemxxRWw" name="pout" srcConnectionInstance="_vct4EMf5EeSePaEemxxRWw" dstFlowSpec="_vco_k8f5EeSePaEemxxRWw" direction="out">
+      <ownedPropertyAssociation xmi:id="_vdPcgsf5EeSePaEemxxRWw">
+        <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Source_Data_Size"/>
+        <ownedValue xmi:id="_vdPcg8f5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_vdPchMf5EeSePaEemxxRWw" value="50">
+            <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Size_Units.Bytes"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
       <feature xsi:type="aadl2:DataPort" href="../packages/simplified_example.aadl#simplified_example::sil_01.pout"/>
     </featureInstance>
-    <flowSpecification xmi:id="_RfX7kcfuEeSePaEemxxRWw" name="flow_sil1" source="_RfXUgMfuEeSePaEemxxRWw" destination="_RfX7kMfuEeSePaEemxxRWw">
-      <ownedPropertyAssociation xmi:id="_RhQx8MfuEeSePaEemxxRWw">
+    <flowSpecification xmi:id="_vco_k8f5EeSePaEemxxRWw" name="flow_sil1" source="_vco_kcf5EeSePaEemxxRWw" destination="_vco_ksf5EeSePaEemxxRWw">
+      <ownedPropertyAssociation xmi:id="_vdPchcf5EeSePaEemxxRWw">
         <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Latency"/>
-        <ownedValue xmi:id="_RhQx8cfuEeSePaEemxxRWw">
-          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhQx8sfuEeSePaEemxxRWw">
-            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhQx88fuEeSePaEemxxRWw" value="3">
+        <ownedValue xmi:id="_vdPchsf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdPch8f5EeSePaEemxxRWw">
+            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdPciMf5EeSePaEemxxRWw" value="3">
               <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
             </minimum>
-            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhQx9MfuEeSePaEemxxRWw" value="4">
+            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdPcicf5EeSePaEemxxRWw" value="4">
               <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
             </maximum>
           </ownedValue>
@@ -98,27 +122,35 @@
     <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.sil1"/>
     <index>0</index>
   </componentInstance>
-  <componentInstance xmi:id="_RfYioMfuEeSePaEemxxRWw" name="sil4" category="process">
-    <ownedPropertyAssociation xmi:id="_RhSAEMfuEeSePaEemxxRWw">
+  <componentInstance xmi:id="_vcpmoMf5EeSePaEemxxRWw" name="sil4" category="process">
+    <ownedPropertyAssociation xmi:id="_vdQDkMf5EeSePaEemxxRWw">
       <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Processor_Binding"/>
-      <ownedValue xmi:id="_RhSAEcfuEeSePaEemxxRWw">
-        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_RhSAEsfuEeSePaEemxxRWw">
-          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_RhSAE8fuEeSePaEemxxRWw" referencedInstanceObject="_RfaX0MfuEeSePaEemxxRWw"/>
+      <ownedValue xmi:id="_vdQDkcf5EeSePaEemxxRWw">
+        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_vdQDksf5EeSePaEemxxRWw">
+          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_vdQDk8f5EeSePaEemxxRWw" referencedInstanceObject="_vcqNscf5EeSePaEemxxRWw"/>
         </ownedValue>
       </ownedValue>
     </ownedPropertyAssociation>
-    <featureInstance xmi:id="_RfZwwMfuEeSePaEemxxRWw" name="pin" dstConnectionInstance="_RfsrsMfuEeSePaEemxxRWw" srcFlowSpec="_RfZwwcfuEeSePaEemxxRWw">
+    <featureInstance xmi:id="_vcpmocf5EeSePaEemxxRWw" name="pin" dstConnectionInstance="_vct4EMf5EeSePaEemxxRWw" srcFlowSpec="_vcpmosf5EeSePaEemxxRWw">
+      <ownedPropertyAssociation xmi:id="_vdRRsMf5EeSePaEemxxRWw">
+        <property href="../../Plugin_Resources/Memory_Properties.aadl#Memory_Properties::Source_Data_Size"/>
+        <ownedValue xmi:id="_vdRRscf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:IntegerLiteral" xmi:id="_vdRRssf5EeSePaEemxxRWw" value="50">
+            <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Size_Units.Bytes"/>
+          </ownedValue>
+        </ownedValue>
+      </ownedPropertyAssociation>
       <feature xsi:type="aadl2:DataPort" href="../packages/simplified_example.aadl#simplified_example::sil_4.pin"/>
     </featureInstance>
-    <flowSpecification xmi:id="_RfZwwcfuEeSePaEemxxRWw" name="flow_sil4" source="_RfZwwMfuEeSePaEemxxRWw">
-      <ownedPropertyAssociation xmi:id="_RhUcUMfuEeSePaEemxxRWw">
+    <flowSpecification xmi:id="_vcpmosf5EeSePaEemxxRWw" name="flow_sil4" source="_vcpmocf5EeSePaEemxxRWw">
+      <ownedPropertyAssociation xmi:id="_vdRRs8f5EeSePaEemxxRWw">
         <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Latency"/>
-        <ownedValue xmi:id="_RhUcUcfuEeSePaEemxxRWw">
-          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhUcUsfuEeSePaEemxxRWw">
-            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhUcU8fuEeSePaEemxxRWw" value="5">
+        <ownedValue xmi:id="_vdRRtMf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdRRtcf5EeSePaEemxxRWw">
+            <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdRRtsf5EeSePaEemxxRWw" value="5">
               <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
             </minimum>
-            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhUcVMfuEeSePaEemxxRWw" value="7">
+            <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdRRt8f5EeSePaEemxxRWw" value="7">
               <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
             </maximum>
           </ownedValue>
@@ -129,30 +161,30 @@
     <subcomponent xsi:type="aadl2:ProcessSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.sil4"/>
     <index>0</index>
   </componentInstance>
-  <componentInstance xmi:id="_RfaX0MfuEeSePaEemxxRWw" name="a_core_1" category="processor">
-    <featureInstance xmi:id="_Rfbl8MfuEeSePaEemxxRWw" name="net" dstConnectionInstance="_Rfq2gMfuEeSePaEemxxRWw" category="busAccess" direction="in out">
-      <ownedPropertyAssociation xmi:id="_RhW4kMfuEeSePaEemxxRWw">
+  <componentInstance xmi:id="_vcpmo8f5EeSePaEemxxRWw" name="a_core_1" category="processor">
+    <featureInstance xmi:id="_vcqNsMf5EeSePaEemxxRWw" name="net" dstConnectionInstance="_vcsp8Mf5EeSePaEemxxRWw" category="busAccess" direction="in out">
+      <ownedPropertyAssociation xmi:id="_vdR4wMf5EeSePaEemxxRWw">
         <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Transmission_Time"/>
-        <ownedValue xmi:id="_RhXfoMfuEeSePaEemxxRWw">
-          <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_RhXfocfuEeSePaEemxxRWw">
-            <ownedFieldValue xmi:id="_RhXfosfuEeSePaEemxxRWw">
+        <ownedValue xmi:id="_vdR4wcf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_vdR4wsf5EeSePaEemxxRWw">
+            <ownedFieldValue xmi:id="_vdR4w8f5EeSePaEemxxRWw">
               <property href="../../Plugin_Resources/Communication_Properties.aadl#null.Fixed"/>
-              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhXfo8fuEeSePaEemxxRWw">
-                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhXfpMfuEeSePaEemxxRWw" value="10">
+              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdR4xMf5EeSePaEemxxRWw">
+                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdR4xcf5EeSePaEemxxRWw" value="10">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
                 </minimum>
-                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhXfpcfuEeSePaEemxxRWw" value="80">
+                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdR4xsf5EeSePaEemxxRWw" value="80">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
                 </maximum>
               </ownedValue>
             </ownedFieldValue>
-            <ownedFieldValue xmi:id="_RhXfpsfuEeSePaEemxxRWw">
+            <ownedFieldValue xmi:id="_vdR4x8f5EeSePaEemxxRWw">
               <property href="../../Plugin_Resources/Communication_Properties.aadl#null.PerByte"/>
-              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhXfp8fuEeSePaEemxxRWw">
-                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhXfqMfuEeSePaEemxxRWw" value="20">
+              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdR4yMf5EeSePaEemxxRWw">
+                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdR4ycf5EeSePaEemxxRWw" value="20">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
                 </minimum>
-                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhXfqcfuEeSePaEemxxRWw" value="30">
+                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdR4ysf5EeSePaEemxxRWw" value="30">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
                 </maximum>
               </ownedValue>
@@ -165,30 +197,30 @@
     <subcomponent xsi:type="aadl2:ProcessorSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.a_core_1"/>
     <index>0</index>
   </componentInstance>
-  <componentInstance xmi:id="_RfcNAMfuEeSePaEemxxRWw" name="a_core_2" category="processor">
-    <featureInstance xmi:id="_Rfc0EMfuEeSePaEemxxRWw" name="net" dstConnectionInstance="_Rfq2gsfuEeSePaEemxxRWw" category="busAccess" direction="in out">
-      <ownedPropertyAssociation xmi:id="_RhZ74MfuEeSePaEemxxRWw">
+  <componentInstance xmi:id="_vcqNscf5EeSePaEemxxRWw" name="a_core_2" category="processor">
+    <featureInstance xmi:id="_vcq0wMf5EeSePaEemxxRWw" name="net" dstConnectionInstance="_vcsp8sf5EeSePaEemxxRWw" category="busAccess" direction="in out">
+      <ownedPropertyAssociation xmi:id="_vdTG4Mf5EeSePaEemxxRWw">
         <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Transmission_Time"/>
-        <ownedValue xmi:id="_Rhai8MfuEeSePaEemxxRWw">
-          <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_Rhai8cfuEeSePaEemxxRWw">
-            <ownedFieldValue xmi:id="_Rhai8sfuEeSePaEemxxRWw">
+        <ownedValue xmi:id="_vdTG4cf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_vdTG4sf5EeSePaEemxxRWw">
+            <ownedFieldValue xmi:id="_vdTG48f5EeSePaEemxxRWw">
               <property href="../../Plugin_Resources/Communication_Properties.aadl#null.Fixed"/>
-              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_Rhai88fuEeSePaEemxxRWw">
-                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_Rhai9MfuEeSePaEemxxRWw" value="10">
+              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdTG5Mf5EeSePaEemxxRWw">
+                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdTG5cf5EeSePaEemxxRWw" value="10">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
                 </minimum>
-                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_Rhai9cfuEeSePaEemxxRWw" value="80">
+                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdTG5sf5EeSePaEemxxRWw" value="80">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
                 </maximum>
               </ownedValue>
             </ownedFieldValue>
-            <ownedFieldValue xmi:id="_Rhai9sfuEeSePaEemxxRWw">
+            <ownedFieldValue xmi:id="_vdTG58f5EeSePaEemxxRWw">
               <property href="../../Plugin_Resources/Communication_Properties.aadl#null.PerByte"/>
-              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_Rhai98fuEeSePaEemxxRWw">
-                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_Rhai-MfuEeSePaEemxxRWw" value="20">
+              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdTG6Mf5EeSePaEemxxRWw">
+                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdTG6cf5EeSePaEemxxRWw" value="20">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
                 </minimum>
-                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_Rhai-cfuEeSePaEemxxRWw" value="30">
+                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdTG6sf5EeSePaEemxxRWw" value="30">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
                 </maximum>
               </ownedValue>
@@ -201,30 +233,30 @@
     <subcomponent xsi:type="aadl2:ProcessorSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.a_core_2"/>
     <index>0</index>
   </componentInstance>
-  <componentInstance xmi:id="_RfdbIMfuEeSePaEemxxRWw" name="a_core_3" category="processor">
-    <featureInstance xmi:id="_RfepQMfuEeSePaEemxxRWw" name="net" dstConnectionInstance="_Rfq2hMfuEeSePaEemxxRWw" category="busAccess" direction="in out">
-      <ownedPropertyAssociation xmi:id="_Rhc_MMfuEeSePaEemxxRWw">
+  <componentInstance xmi:id="_vcq0wcf5EeSePaEemxxRWw" name="a_core_3" category="processor">
+    <featureInstance xmi:id="_vcq0wsf5EeSePaEemxxRWw" name="net" dstConnectionInstance="_vcsp9Mf5EeSePaEemxxRWw" category="busAccess" direction="in out">
+      <ownedPropertyAssociation xmi:id="_vdUVAMf5EeSePaEemxxRWw">
         <property href="../../Plugin_Resources/Communication_Properties.aadl#Communication_Properties::Transmission_Time"/>
-        <ownedValue xmi:id="_RhdmQMfuEeSePaEemxxRWw">
-          <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_RhdmQcfuEeSePaEemxxRWw">
-            <ownedFieldValue xmi:id="_RhdmQsfuEeSePaEemxxRWw">
+        <ownedValue xmi:id="_vdUVAcf5EeSePaEemxxRWw">
+          <ownedValue xsi:type="aadl2:RecordValue" xmi:id="_vdUVAsf5EeSePaEemxxRWw">
+            <ownedFieldValue xmi:id="_vdUVA8f5EeSePaEemxxRWw">
               <property href="../../Plugin_Resources/Communication_Properties.aadl#null.Fixed"/>
-              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhdmQ8fuEeSePaEemxxRWw">
-                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhdmRMfuEeSePaEemxxRWw" value="10">
+              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdUVBMf5EeSePaEemxxRWw">
+                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdUVBcf5EeSePaEemxxRWw" value="10">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
                 </minimum>
-                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhdmRcfuEeSePaEemxxRWw" value="80">
+                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdUVBsf5EeSePaEemxxRWw" value="80">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.ms"/>
                 </maximum>
               </ownedValue>
             </ownedFieldValue>
-            <ownedFieldValue xmi:id="_RhdmRsfuEeSePaEemxxRWw">
+            <ownedFieldValue xmi:id="_vdUVB8f5EeSePaEemxxRWw">
               <property href="../../Plugin_Resources/Communication_Properties.aadl#null.PerByte"/>
-              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_RhdmR8fuEeSePaEemxxRWw">
-                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhdmSMfuEeSePaEemxxRWw" value="20">
+              <ownedValue xsi:type="aadl2:RangeValue" xmi:id="_vdUVCMf5EeSePaEemxxRWw">
+                <minimum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdUVCcf5EeSePaEemxxRWw" value="20">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
                 </minimum>
-                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_RhdmScfuEeSePaEemxxRWw" value="30">
+                <maximum xsi:type="aadl2:IntegerLiteral" xmi:id="_vdUVCsf5EeSePaEemxxRWw" value="30">
                   <unit href="../../Plugin_Resources/AADL_Project.aadl#AADL_Project::Time_Units.us"/>
                 </maximum>
               </ownedValue>
@@ -237,50 +269,50 @@
     <subcomponent xsi:type="aadl2:ProcessorSubcomponent" href="../packages/simplified_example.aadl#simplified_example::main.i.a_core_3"/>
     <index>0</index>
   </componentInstance>
-  <endToEndFlow xmi:id="_RfvH8MfuEeSePaEemxxRWw" name="etelatency" flowElement="_RfVfUMfuEeSePaEemxxRWw _RfsEoMfuEeSePaEemxxRWw _RfX7kcfuEeSePaEemxxRWw _RfsrsMfuEeSePaEemxxRWw _RfZwwcfuEeSePaEemxxRWw">
+  <endToEndFlow xmi:id="_vcufIMf5EeSePaEemxxRWw" name="etelatency" flowElement="_vcoYgsf5EeSePaEemxxRWw _vctRAMf5EeSePaEemxxRWw _vco_k8f5EeSePaEemxxRWw _vct4EMf5EeSePaEemxxRWw _vcpmosf5EeSePaEemxxRWw">
     <endToEndFlow href="../packages/simplified_example.aadl#simplified_example::main.i.etelatency"/>
   </endToEndFlow>
-  <connectionInstance xmi:id="_Rfq2gMfuEeSePaEemxxRWw" name="processor_generic_bus -> a_core_1.net" complete="true" kind="accessConnection" destination="_Rfbl8MfuEeSePaEemxxRWw" bidirectional="true" source="_RfPYsMfuEeSePaEemxxRWw">
-    <ownedPropertyAssociation xmi:id="_RheNUMfuEeSePaEemxxRWw">
-      <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Connection_Binding"/>
-      <ownedValue xmi:id="_RheNUcfuEeSePaEemxxRWw">
-        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_RheNUsfuEeSePaEemxxRWw">
-          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_RheNU8fuEeSePaEemxxRWw" referencedInstanceObject="_RfPYsMfuEeSePaEemxxRWw"/>
-        </ownedValue>
-      </ownedValue>
-    </ownedPropertyAssociation>
-    <connectionReference xmi:id="_Rfq2gcfuEeSePaEemxxRWw" context="_RfBWQMfuEeSePaEemxxRWw" source="_RfPYsMfuEeSePaEemxxRWw" destination="_Rfbl8MfuEeSePaEemxxRWw">
+  <connectionInstance xmi:id="_vcsp8Mf5EeSePaEemxxRWw" name="processor_generic_bus -> a_core_1.net" complete="true" kind="accessConnection" destination="_vcqNsMf5EeSePaEemxxRWw" bidirectional="true" source="_vcnxcMf5EeSePaEemxxRWw">
+    <connectionReference xmi:id="_vcsp8cf5EeSePaEemxxRWw" context="_vcl8QMf5EeSePaEemxxRWw" source="_vcnxcMf5EeSePaEemxxRWw" destination="_vcqNsMf5EeSePaEemxxRWw">
       <connection xsi:type="aadl2:AccessConnection" href="../packages/simplified_example.aadl#simplified_example::main.i.b1"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance xmi:id="_Rfq2gsfuEeSePaEemxxRWw" name="processor_generic_bus -> a_core_2.net" complete="true" kind="accessConnection" destination="_Rfc0EMfuEeSePaEemxxRWw" bidirectional="true" source="_RfPYsMfuEeSePaEemxxRWw">
-    <ownedPropertyAssociation xmi:id="_Rhe0YMfuEeSePaEemxxRWw">
-      <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Connection_Binding"/>
-      <ownedValue xmi:id="_Rhe0YcfuEeSePaEemxxRWw">
-        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_Rhe0YsfuEeSePaEemxxRWw">
-          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_Rhe0Y8fuEeSePaEemxxRWw" referencedInstanceObject="_RfPYsMfuEeSePaEemxxRWw"/>
-        </ownedValue>
-      </ownedValue>
-    </ownedPropertyAssociation>
-    <connectionReference xmi:id="_Rfq2g8fuEeSePaEemxxRWw" context="_RfBWQMfuEeSePaEemxxRWw" source="_RfPYsMfuEeSePaEemxxRWw" destination="_Rfc0EMfuEeSePaEemxxRWw">
+  <connectionInstance xmi:id="_vcsp8sf5EeSePaEemxxRWw" name="processor_generic_bus -> a_core_2.net" complete="true" kind="accessConnection" destination="_vcq0wMf5EeSePaEemxxRWw" bidirectional="true" source="_vcnxcMf5EeSePaEemxxRWw">
+    <connectionReference xmi:id="_vcsp88f5EeSePaEemxxRWw" context="_vcl8QMf5EeSePaEemxxRWw" source="_vcnxcMf5EeSePaEemxxRWw" destination="_vcq0wMf5EeSePaEemxxRWw">
       <connection xsi:type="aadl2:AccessConnection" href="../packages/simplified_example.aadl#simplified_example::main.i.b2"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance xmi:id="_Rfq2hMfuEeSePaEemxxRWw" name="processor_generic_bus -> a_core_3.net" complete="true" kind="accessConnection" destination="_RfepQMfuEeSePaEemxxRWw" bidirectional="true" source="_RfPYsMfuEeSePaEemxxRWw">
-    <connectionReference xmi:id="_Rfq2hcfuEeSePaEemxxRWw" context="_RfBWQMfuEeSePaEemxxRWw" source="_RfPYsMfuEeSePaEemxxRWw" destination="_RfepQMfuEeSePaEemxxRWw">
+  <connectionInstance xmi:id="_vcsp9Mf5EeSePaEemxxRWw" name="processor_generic_bus -> a_core_3.net" complete="true" kind="accessConnection" destination="_vcq0wsf5EeSePaEemxxRWw" bidirectional="true" source="_vcnxcMf5EeSePaEemxxRWw">
+    <connectionReference xmi:id="_vcsp9cf5EeSePaEemxxRWw" context="_vcl8QMf5EeSePaEemxxRWw" source="_vcnxcMf5EeSePaEemxxRWw" destination="_vcq0wsf5EeSePaEemxxRWw">
       <connection xsi:type="aadl2:AccessConnection" href="../packages/simplified_example.aadl#simplified_example::main.i.b3"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance xmi:id="_RfsEoMfuEeSePaEemxxRWw" name="sil00.pout -> sil1.pin" complete="true" kind="portConnection" destination="_RfXUgMfuEeSePaEemxxRWw" source="_RfU4QMfuEeSePaEemxxRWw">
-    <connectionReference xmi:id="_RfsEocfuEeSePaEemxxRWw" context="_RfBWQMfuEeSePaEemxxRWw" source="_RfU4QMfuEeSePaEemxxRWw" destination="_RfXUgMfuEeSePaEemxxRWw">
+  <connectionInstance xmi:id="_vctRAMf5EeSePaEemxxRWw" name="sil00.pout -> sil1.pin" complete="true" kind="portConnection" destination="_vco_kcf5EeSePaEemxxRWw" source="_vcoYgcf5EeSePaEemxxRWw">
+    <ownedPropertyAssociation xmi:id="_vdUVC8f5EeSePaEemxxRWw">
+      <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Connection_Binding"/>
+      <ownedValue xmi:id="_vdUVDMf5EeSePaEemxxRWw">
+        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_vdUVDcf5EeSePaEemxxRWw">
+          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_vdUVDsf5EeSePaEemxxRWw" referencedInstanceObject="_vcnxcMf5EeSePaEemxxRWw"/>
+        </ownedValue>
+      </ownedValue>
+    </ownedPropertyAssociation>
+    <connectionReference xmi:id="_vctRAcf5EeSePaEemxxRWw" context="_vcl8QMf5EeSePaEemxxRWw" source="_vcoYgcf5EeSePaEemxxRWw" destination="_vco_kcf5EeSePaEemxxRWw">
       <connection xsi:type="aadl2:PortConnection" href="../packages/simplified_example.aadl#simplified_example::main.i.compute1"/>
     </connectionReference>
   </connectionInstance>
-  <connectionInstance xmi:id="_RfsrsMfuEeSePaEemxxRWw" name="sil1.pout -> sil4.pin" complete="true" kind="portConnection" destination="_RfZwwMfuEeSePaEemxxRWw" source="_RfX7kMfuEeSePaEemxxRWw">
-    <connectionReference xmi:id="_RfsrscfuEeSePaEemxxRWw" context="_RfBWQMfuEeSePaEemxxRWw" source="_RfX7kMfuEeSePaEemxxRWw" destination="_RfZwwMfuEeSePaEemxxRWw">
+  <connectionInstance xmi:id="_vct4EMf5EeSePaEemxxRWw" name="sil1.pout -> sil4.pin" complete="true" kind="portConnection" destination="_vcpmocf5EeSePaEemxxRWw" source="_vco_ksf5EeSePaEemxxRWw">
+    <ownedPropertyAssociation xmi:id="_vdU8EMf5EeSePaEemxxRWw">
+      <property href="../../Plugin_Resources/Deployment_Properties.aadl#Deployment_Properties::Actual_Connection_Binding"/>
+      <ownedValue xmi:id="_vdU8Ecf5EeSePaEemxxRWw">
+        <ownedValue xsi:type="aadl2:ListValue" xmi:id="_vdU8Esf5EeSePaEemxxRWw">
+          <ownedListElement xsi:type="instance:InstanceReferenceValue" xmi:id="_vdU8E8f5EeSePaEemxxRWw" referencedInstanceObject="_vcnxcMf5EeSePaEemxxRWw"/>
+        </ownedValue>
+      </ownedValue>
+    </ownedPropertyAssociation>
+    <connectionReference xmi:id="_vct4Ecf5EeSePaEemxxRWw" context="_vcl8QMf5EeSePaEemxxRWw" source="_vco_ksf5EeSePaEemxxRWw" destination="_vcpmocf5EeSePaEemxxRWw">
       <connection xsi:type="aadl2:PortConnection" href="../packages/simplified_example.aadl#simplified_example::main.i.compute2"/>
     </connectionReference>
   </connectionInstance>
-  <systemOperationMode xmi:id="_RfjhwMfuEeSePaEemxxRWw" name="No Modes"/>
+  <systemOperationMode xmi:id="_vcrb0Mf5EeSePaEemxxRWw" name="No Modes"/>
   <systemImplementation href="../packages/simplified_example.aadl#simplified_example::main.i"/>
 </instance:SystemInstance>

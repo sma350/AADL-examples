@@ -8,6 +8,8 @@ with Base_Types;
 -----------------------------------------------------------------------
 
 data timedata
+properties
+	Source_Data_Size => 50 Bytes; -- size of an individual data element. This will be used in transmission time calculations.
 end timedata;
 
 bus generic_bus
@@ -138,7 +140,7 @@ end core.i;
 process sil_00
 features
 --	pin : in event data port timedata;
-	pout : out data port;
+	pout : out data port timedata;
 flows
 	flow_sil0: flow source pout;
 properties
@@ -147,8 +149,8 @@ end sil_00;
 
 process sil_01
 features
-	pin : in data port;
-	pout : out data port;
+	pin : in data port timedata;
+	pout : out data port timedata;
 flows
 	flow_sil1: flow path pin -> pout;
 properties
@@ -157,7 +159,7 @@ end sil_01;
 
 process sil_4
 features
-	pin : in data port;
+	pin : in data port timedata;
 --	pout : in event data port timedata;
 flows
 	flow_sil4: flow sink pin;
@@ -296,11 +298,11 @@ flows
 	etelatency: end to end flow sil00.flow_sil0 -> compute1 -> sil1.flow_sil1 -> compute2 -> sil4.flow_sil4;
 properties
       Actual_Processor_Binding => (reference(a_core_1)) applies to sil00;
-      Actual_Processor_Binding => (reference(a_core_2)) applies to sil1;
-      Actual_Processor_Binding => (reference(a_core_1)) applies to sil4;
+      Actual_Processor_Binding => (reference(a_core_1)) applies to sil1;
+      Actual_Processor_Binding => (reference(a_core_2)) applies to sil4;
       
-      Actual_connection_binding => (reference (processor_generic_bus)) applies to b1;
-	  Actual_connection_binding => (reference (processor_generic_bus)) applies to b2;
+      Actual_connection_binding => (reference (processor_generic_bus)) applies to compute1;
+	  Actual_connection_binding => (reference (processor_generic_bus)) applies to compute2;
 end main.i;
 
 end simplified_example;
