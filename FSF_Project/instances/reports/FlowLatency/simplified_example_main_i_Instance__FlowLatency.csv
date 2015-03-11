@@ -1,0 +1,32 @@
+flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total, expected
+
+etelatency: End to End Latency report
+
+Warning: etelatency: End to end flow has no latency requirement specified.
+etelatency (Synchronous)   ,process,sil00,0.0 us,0.0 us,0.0 us,3.0 ms,3.0 ms,3.0 ms,0.0 us
+etelatency (Synchronous)   ,Connection,sil00.pout -> sil1.pin,0.0 us,0.0 us,0.0 us,0.0 us,3.0 ms,3.0 ms,0.0 us
+etelatency (Synchronous)   ,process,sil1:flow_sil1,4.0 ms,0.0 us,0.0 us,4.0 ms,7.0 ms,0.0 us,0.0 us
+etelatency (Synchronous)   ,Connection,sil1.pout -> sil4.pin,0.0 us,0.0 us,0.0 us,0.0 us,7.0 ms,7.0 ms,0.0 us
+etelatency (Synchronous)   ,process,sil4:flow_sil4,7.0 ms,0.0 us,0.0 us,7.0 ms,14.0 ms,0.0 us,0.0 us
+etelatency (Synchronous)   ,Total,,0.0 us,0.0 us,0.0 us,0.0 us,0.0 us,14.0 ms,0.0 us
+
+etelatency: Calculated latency (Synchronous)    for end-to-end flow etelatency is 14.0 ms
+
+
+
+etelatency: End to End Latency report
+
+Warning: etelatency: End to end flow has no latency requirement specified.
+etelatency (ASynchronous) ,process,sil00,0.0 us,0.0 us,0.0 us,3.0 ms,3.0 ms,3.0 ms,0.0 us
+etelatency (ASynchronous) ,Connection,sil00.pout -> sil1.pin,0.0 us,0.0 us,0.0 us,0.0 us,3.0 ms,3.0 ms,0.0 us
+etelatency (ASynchronous) ,process,sil1:flow_sil1,4.0 ms,0.0 us,0.0 us,4.0 ms,7.0 ms,0.0 us,0.0 us
+etelatency (ASynchronous) ,Connection,sil1.pout -> sil4.pin,0.0 us,0.0 us,0.0 us,0.0 us,7.0 ms,7.0 ms,0.0 us
+etelatency (ASynchronous) ,process,sil4:flow_sil4,7.0 ms,0.0 us,0.0 us,7.0 ms,14.0 ms,0.0 us,0.0 us
+etelatency (ASynchronous) ,Total,,0.0 us,0.0 us,0.0 us,0.0 us,0.0 us,14.0 ms,0.0 us
+
+etelatency: Calculated latency (ASynchronous)  for end-to-end flow etelatency is 14.0 ms
+
+
+
+
+

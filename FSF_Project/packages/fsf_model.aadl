@@ -1,0 +1,712 @@
+package fsf_model
+public
+with EMV2;
+with Base_Types;
+
+------------data---------------
+data val
+end val;
+
+data time
+end time;
+
+data states
+end states;
+
+data Whole_train_RSD_states
+end Whole_train_RSD_states;
+
+data Whole_PEZ_RSD_states
+end Whole_PEZ_RSD_states;
+
+data Start_to_stop_data_for_passenger_exchange
+end Start_to_stop_data_for_passenger_exchange;
+
+data RSD_PSD_States
+end RSD_PSD_States;
+
+-------------------------------------------------------------------------------------------------
+--------------------------------------- Subprograms ---------------------------------------------
+-------------------------------------------------------------------------------------------------
+
+							--------------- SIL4 ---------------------
+subprogram Determine_RSD_and_PSD_correpondance_by_alignement_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Determine_RSD_and_PSD_correpondance_by_alignement_subprogram.c";
+end Determine_RSD_and_PSD_correpondance_by_alignement_Function;
+
+subprogram Determine_RSD_enabled_by_inclusion_in_PEZ_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Determine_RSD_enabled_by_inclusion_in_PEZ.c";
+end Determine_RSD_enabled_by_inclusion_in_PEZ_Function;
+
+subprogram Give_current_PEZ_description_for_doors_enabled_computation_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Give_current_PEZ_description_for_doors_enabled_computation.c";
+end Give_current_PEZ_description_for_doors_enabled_computation_Function;
+
+subprogram Determine_Departure_Authorization_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Determine_Departure_Authorization.c";
+end Determine_Departure_Authorization_Function;
+
+subprogram Determine_Doors_Enabled_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Determine_Doors_Enabled.c";
+end Determine_Doors_Enabled_Function;
+
+							--------------- SIL01 ---------------------
+
+subprogram Passenger_Exchange_Interface_With_ATS_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Passenger_Exchange_Interface_With_ATS.c";
+end Passenger_Exchange_Interface_With_ATS_Function;
+
+subprogram Check_Passenger_Exchange_Start_conditions_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Check_Passenger_Exchange_Start_conditions.c";
+end Check_Passenger_Exchange_Start_conditions_Function;
+
+subprogram Determine_Time_Of_Departure_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Determine_Time_Of_Departure.c";
+end Determine_Time_Of_Departure_Function;
+
+subprogram Passenger_Exchange_Workplan_Executor_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Passenger_Exchange_Workplan_Executor.c";
+end Passenger_Exchange_Workplan_Executor_Function;
+
+subprogram Passenger_Exchange_Workplan_Generator_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Passenger_Exchange_Workplan_Generator.c";
+end Passenger_Exchange_Workplan_Generator_Function;
+
+							--------------- SIL00 ---------------------
+subprogram Passenger_Exchange_Data_Logger_Function
+properties
+	Source_Language => (C);
+	Source_Name => "Passenger_Exchange_Data_Logger.c";
+end Passenger_Exchange_Data_Logger_Function;
+
+-------------------------------------------------------------------------------------------------
+--------------------------------------- Threads -------------------------------------------------
+-------------------------------------------------------------------------------------------------
+
+thread step1
+features
+  ined: in event data port time { Queue_Size => 0; };
+  outed: out event data port time;
+flows
+  flow1: flow path ined -> outed { latency => 0ms .. 45ms;};
+properties
+  Period => 50 ms;
+  Deadline => 45 ms;
+  Compute_Execution_Time => 6 ms .. 10 ms;
+end step1;
+
+thread implementation step1.periodic
+flows
+  flow1: flow path ined -> outed;
+properties
+  Dispatch_Protocol => Periodic;
+end step1.periodic;
+
+thread implementation step1.aperiodic
+flows
+  flow1: flow path ined -> outed;
+properties
+  Dispatch_Protocol => Aperiodic;
+end step1.aperiodic;
+
+thread step2
+features
+  ined: in event data port time { Queue_Size => 0; };
+  outed: out event data port time;
+flows
+  flow1: flow path ined -> outed { latency => 0 ms .. 70 ms;};
+properties
+  Period => 100 ms;
+  Deadline => 70 ms;
+  Compute_Execution_Time => 15 ms .. 23 ms;
+end step2;
+
+thread implementation step2.periodic
+flows
+	flow1: flow path ined -> outed;
+properties
+	Dispatch_Protocol => Periodic;
+end step2.periodic;
+
+thread implementation step2.aperiodic
+flows
+	flow1: flow path ined -> outed;
+properties
+	Dispatch_Protocol => Aperiodic;
+end step2.aperiodic;
+
+thread step3
+features
+	ined: in event data port time { Queue_Size => 0; };
+	outed: out event data port time;
+flows
+	flow1: flow path ined -> outed { latency => 0 ms .. 45 ms;};
+properties
+	period => 50 ms;
+	deadline => 45 ms;
+	Compute_Execution_Time => 6 ms .. 10 ms;
+End step3;
+
+thread implementation step3.periodic
+flows
+	flow1: flow path ined -> outed;
+properties
+	Dispatch_Protocol => Periodic;
+end step3.periodic;
+
+thread implementation step3.aperiodic
+flows
+	flow1: flow path ined -> outed;
+properties
+	Dispatch_Protocol => Aperiodic;
+end step3.aperiodic;
+
+-------------------------------------------------------------------------------------------------
+--------------------------------------- Process -------------------------------------------------
+-------------------------------------------------------------------------------------------------
+
+
+						--	Passenger exchange vital controller	processes --
+
+process Determine_RSD_and_PSD_correpondance_by_alignement
+features
+	RSD_PEZ 							 : in event data port;
+	PSD_PEZ 							 : in event data port;
+	Train_length 						 : in data port Base_Types::Float;
+	minimum_width_for_passenger_exchange : in data port Base_Types::Float;
+	Whole_train_location 				 : in data port;
+	RSD_PSD_correspondance				 : out data port;
+end Determine_RSD_and_PSD_correpondance_by_alignement;
+
+process Determine_RSD_enabled_by_inclusion_in_PEZ
+features
+	RSD_PEZ			   							  : in event data port;	
+	PEZ_description_for_doors_enabled_computation : in data port;
+	Whole_train_location 				 		  : in data port;
+	RSD_enabled_by_inclusion_in_platform 		  : out event data port Base_Types::Boolean;
+end Determine_RSD_enabled_by_inclusion_in_PEZ;
+
+process Give_current_PEZ_description_for_doors_enabled_computation
+features
+	PEZ_description : in data port;
+	Whole_train_location : in data port; 
+	PEZ_description_for_doors_enabled_computation : out data port;
+end Give_current_PEZ_description_for_doors_enabled_computation;
+
+process determine_departure_authorization
+features
+	RSD_closed					: in event data port Base_Types::Boolean;
+	PSD_closed 					: in event data port Base_Types::Boolean;
+	PSD_control_survival_time 	: in data port time;
+	PSD_enabled 				: in event data port Base_Types::Boolean;
+	Departure_authorization 	: out data port Base_Types::Boolean;
+	RSD_PEZ 					: in event data port;
+	PSD_PEZ 					: in event data port;	
+end determine_departure_authorization;
+
+process determine_doors_enabled
+features 
+	RSD_enabled_by_inclusion_in_platform 		  	: in event data port Base_Types::Boolean;
+	PEZ_description_for_doors_enabled_computation 	: in data port;
+	RSD_PSD_correspondance				  			: in data port;
+	RSD_enabled_by_project_specific_conditions 		: in event data port Base_Types::Boolean;
+	PSD_enabled_by_project_specific_condition		: in event data port Base_Types::Boolean;
+	Train_safely_imobilized 						: in data port Base_Types::Boolean;
+	RSD_enabled 									: out event data port Base_Types::Boolean;
+	PSD_enabled 									: out event data port Base_Types::Boolean;
+end determine_doors_enabled;
+
+----------------------------------------------------------------
+
+process implementation Determine_RSD_and_PSD_correpondance_by_alignement.i 
+end Determine_RSD_and_PSD_correpondance_by_alignement.i;
+
+process implementation Determine_RSD_enabled_by_inclusion_in_PEZ.i
+end Determine_RSD_enabled_by_inclusion_in_PEZ.i;
+
+process implementation Give_current_PEZ_description_for_doors_enabled_computation.i
+end Give_current_PEZ_description_for_doors_enabled_computation.i;
+
+process implementation determine_departure_authorization.i
+end determine_departure_authorization.i;
+
+process implementation determine_doors_enabled.i
+end determine_doors_enabled.i;
+
+
+						--	Passenger exchange non vital controller processes	--
+
+process Passenger_exchange_data_logger
+features
+	Carry_out_passenger_exchange 		: in data port Base_Types::Boolean;
+	Start_to_stop_data 			 		: in data port Start_to_stop_data_for_passenger_exchange;
+	Current_Date					   	: in data port time;
+	Whole_train_RSD_non_vital_commands 	: in data port;
+	Whole_PEZ_PSD_non_vital_commands 	: in data port;
+	Passenger_exchange_data_for_logger 	: out data port;
+end Passenger_exchange_data_logger;
+
+process Passenger_exchange_interface_with_ATS
+features 
+	Whole_train_RSD_states				: in data port Whole_train_RSD_states;
+	Whole_train_RSD_warnings			: in data port;
+	Whole_PEZ_PSD_warnings 				: in data port;
+	All_RSD_closed 						: out data port Base_Types::Boolean;
+	RSD_opening_failure_warning			: out data port Base_Types::Boolean;
+	PSD_opening_failure_warning			: out data port Base_Types::Boolean;
+	RSD_closing_failure_warning			: out data port Base_Types::Boolean;
+	PSD_closing_failure_warning			: out data port Base_Types::Boolean;
+end Passenger_exchange_interface_with_ATS;
+
+process Check_passenger_exchange_start_conditions
+features
+	Start_to_stop_data 			 		: in data port Start_to_stop_data_for_passenger_exchange;	
+	Start_to_stop_mission_accomplished 	: in data port Base_Types::Boolean;
+	RSD_enabled 						: in event data port Base_Types::Boolean;
+	CTC_in_automatic_mode 			   	: in data port Base_Types::Boolean;
+	Carry_out_passenger_exchange 		: out data port Base_Types::Boolean;	
+end Check_passenger_exchange_start_conditions;
+
+process Determine_time_of_departure
+features
+	Time_of_departure					: out data port time;
+	Carry_out_passenger_exchange 		: in data port Base_Types::Boolean;
+	Start_to_stop_data 			 		: in data port Start_to_stop_data_for_passenger_exchange;	
+end Determine_time_of_departure;
+
+process Passenger_exchange_workplan_executor
+features
+	Passenger_exchange_workplan			: in data port;
+	Carry_out_passenger_exchange 		: in data port Base_Types::Boolean;
+	Current_Date					   	: in data port time;
+	Whole_train_RSD_states				: in data port Whole_train_RSD_states;	
+	Whole_PEZ_PSD_states 				: in data port;	
+	Whole_train_RSD_non_vital_commands 	: out data port;
+	Whole_train_RSD_warnings			: out data port;
+	Whole_PEZ_PSD_non_vital_commands 	: out data port;
+	Whole_PEZ_PSD_warnings 				: out data port;
+end Passenger_exchange_workplan_executor;
+
+process Passenger_exchange_workplan_generator
+features
+	RSD_PSD_correspondance				: in data port;
+	Time_of_departure					: in data port time;
+	Passenger_exchange_workplan			: out data port;	
+end Passenger_exchange_workplan_generator;
+
+-------------------------  SIL00 -------------------------------------------
+
+process implementation Passenger_exchange_data_logger.i
+end Passenger_exchange_data_logger.i;
+
+-------------------------  SIL01 -------------------------------------------
+
+process implementation Passenger_exchange_interface_with_ATS.i
+end Passenger_exchange_interface_with_ATS.i;
+
+process implementation Check_passenger_exchange_start_conditions.i
+end Check_passenger_exchange_start_conditions.i;
+
+process implementation Determine_time_of_departure.i
+end Determine_time_of_departure.i;
+
+process implementation Passenger_exchange_workplan_executor.i
+end Passenger_exchange_workplan_executor.i;
+
+process implementation Passenger_exchange_workplan_generator.i
+end Passenger_exchange_workplan_generator.i;
+
+
+--system Passenger_Exchange_Train_Control
+--features
+--	------------------------------ in ports ------------------------------------------------------
+--	RSD_closed 									: in data port Base_Types::Boolean;
+--	PSD_closed 									: in data port Base_Types::Boolean;
+--	No_intercom_call 							: in data port Base_Types::Boolean;
+--	RSD_enabled_by_project_specific_conditions 	: in event data port Base_Types::Boolean;
+--	PSD_enabled_by_project_specific_condition	: in event data port Base_Types::Boolean;
+--	Train_safely_imobilized 					: in data port Base_Types::Boolean;
+--	Train_length 								: in data port Base_Types::Float;
+--	Whole_train_location						: in data port;
+--	RSD_PEZ										: in data port;
+--	PEZ_descriptions 							: in data port;
+--	minimum_width_for_passenger_exchange		: in data port Base_Types::Float;
+--	PSD_control_survival_time 					: in data port time;
+--	RSD_control_survival_time 					: in data port time;
+--	RSD_open_command 							: in event data port Base_Types::Boolean;
+--	PSD_open_command 							: in event data port Base_Types::Boolean;
+--	Start_to_stop_data 							: in data port Start_to_stop_data_for_passenger_exchange;
+--	Start_to_stop_mission_accomplished 			: in data port Base_Types::Boolean;
+--	Current_Date					   			: in data port time;
+--	CTC_in_automatic_mode 			   			: in data port Base_Types::Boolean;
+--	Whole_train_RSD_states						: in data port Whole_train_RSD_states;
+--	Whole_PEZ_PSD_states						: in data port;
+--	Current_plaform 							: in data port;
+--
+--	------------------------------ out ports ------------------------------------------------------
+--	Whole_train_RSD_non_vital_commands 	: out data port;
+--	Whole_train_RSD_warnings			: out data port;
+--	Whole_PEZ_PSD_non_vital_commands 	: out data port;
+--	Whole_PEZ_PSD_warnings 				: out data port;
+--	Passenger_exchange_data_for_ATS 	: out data port Base_Types::Boolean;
+--	Passenger_exchange_data_for_logger 	: out data port;
+--	Departure_authorization 			: out data port Base_Types::Boolean;
+--	RSD_enabled 						: in out event data port Base_Types::Boolean;
+--	PSD_enabled 						: out event data port Base_Types::Boolean;
+--	RSD_PSD_correspondance 				: in out data port;
+--end Passenger_Exchange_Train_Control;
+--
+--system implementation Passenger_Exchange_Train_Control.i
+--subcomponents
+--	-- SIL4
+--	Give_current_PEZ_description_for_doors_enabled_computation 	: process Give_current_PEZ_description_for_doors_enabled_computation;
+--	Determine_RSD_and_PSD_correpondance_by_alignement 			: process Determine_RSD_and_PSD_correpondance_by_alignement;
+--	Determine_RSD_enabled_by_inclusion_in_PEZ					: process Determine_RSD_enabled_by_inclusion_in_PEZ;
+--	Determine_departure_authorization							: process Determine_departure_authorization;
+--	Determine_doors_enabled										: process Determine_doors_enabled;
+--	-- SIL00
+--	Passenger_exchange_data_logger								: process Passenger_exchange_data_logger;
+--	-- SIL01
+--	Passenger_exchange_interface_with_ATS						: process Passenger_exchange_interface_with_ATS;
+--	Check_passenger_exchange_start_conditions					: process Check_passenger_exchange_start_conditions;
+--	Determine_time_of_departure									: process Determine_time_of_departure;
+--	Passenger_exchange_workplan_executor						: process Passenger_exchange_workplan_executor;
+--	Passenger_exchange_workplan_generator						: process Passenger_exchange_workplan_generator;
+--	
+
+
+----------------------------- buses ------------------------------------------
+
+bus ethernet
+end ethernet;
+
+bus generic
+end generic;
+
+device gateway
+features
+	gw_koon  	: requires bus access generic_bus;
+	gw_to_gw 	: requires bus access ethernet;
+	outed		: out event data port time;
+	p_in		: in event data port;
+flows
+	FlowSource	: flow source outed{latency => 0 ms .. 2 ms;};
+	FlowSink	: flow sink p_in {latency => 5 ms .. 7 ms;};
+	FlowPath	: flow path p_in -> outed;	
+properties
+  period => 50 ms; 
+  deadline => 2 ms;
+  Compute_Execution_Time => 1 ms .. 2 ms;
+
+--	FlowPath	 : flow path p_in -> p_out;	
+annex EMV2 {**
+	use types ErrorLibrary;
+	use behavior architecture_errlib::Simple;
+	properties
+	    --  The following properties are used to fill the PRISM model
+	    --  and the FHA report.
+	    --  The value here corresponds to lambda_s in the PRISM model
+	    --  lamba_s = 1/(30*24*60*60)
+	    --  from the specifications, it corresponds to 1 fault per month
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.85e-7 ; Distribution => Poisson;] applies to Failure;
+		EMV2::severity => 1 applies to Failure;
+
+		EMV2::likelihood => C applies to Failure;
+		EMV2::hazards => 
+		([	crossreference => "X.X.X.X";
+			failure => "Loss of sensor readings";
+			phases => ("all");
+			description => "No position readings due to sensor failure";
+			comment => "Not critical as long as two sensors are operating";
+		])
+		applies to Failure;
+		
+		EMV2::severity => 1 applies to Failed;
+		EMV2::likelihood => C applies to Failed;
+		EMV2::hazards => 
+		([	crossreference => "A.A.A";
+			failure => "Sensor in failure state";
+			phases => ("all");
+			description => "Failure of sensor";
+			comment => "Likely happen once a month";
+		])
+		applies to Failed;
+
+**};
+
+end gateway;
+
+device implementation gateway.i
+end gateway.i;
+
+bus generic_bus
+end generic_bus;
+
+bus implementation generic_bus.i
+end generic_bus.i;
+
+processor generic_processor
+features
+	ba : requires bus access generic_bus.i;
+	p_out		 : out event data port;
+	p_in		 : in event data port;
+flows
+	FlowPath	 : flow path p_in -> p_out;
+	FlowSink	: flow sink p_in;
+properties
+	latency => 1 ms .. 3 ms applies to FlowSink;
+	latency => 3 ms .. 4 ms applies to FlowPath;
+
+annex EMV2 {**
+	use types architecture_errlib;
+	use behavior architecture_errlib::SimpleAndTransient;
+	
+	properties
+		--  The following properties are used to fill the PRISM model
+	    --  and the FHA report.
+	    --  The value corresponds to lambda_s in the PRISM model
+	    --  lamba_p = 1/(365*24*60*60)
+	    --  from the specifications, it corresponds to 1 fault per year
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.17e-8 ; Distribution => Poisson;] applies to Failure;
+		EMV2::severity => 1 applies to Failure;
+		EMV2::likelihood => B applies to Failure;
+		EMV2::hazards => 
+		([	crossreference => "Z.Z.Z";
+			failure => "Cannot process data";
+			phases => ("all");
+			description => "Permanent failure from the processor";
+			comment => "Major issue, the processor is not operating";
+		])
+		applies to Failure;
+	 	--  The following properties are used to fill the PRISM model
+	    --  and the FHA report.
+		--  The value corresponds to delta_r in the PRISM model
+	    --  delta_r = 1/(1/30)
+	    --  from the specifications, it corresponds to 1 recovery occurence each 30 seconds
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.03 ; Distribution => Poisson;] applies to ResetEvent;
+		
+		--  The following properties are used to fill the PRISM model
+	    --  and the FHA report.
+		--  The value corresponds to delta_f in the PRISM model
+	    --  delta_f = 1/(1/24*60*60)
+	    --  from the specifications, it corresponds to 1 transient failure occurence each day
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 1.15e-5 ; Distribution => Poisson;] applies to FailureTransient;
+		EMV2::severity => 1 applies to FailureTransient;
+		EMV2::likelihood => A applies to FailureTransient;
+		EMV2::hazards => (
+		[	crossreference => "A.A.A";
+			failure => "Temporary unavailable";
+			phases => ("all");
+			description => "Temporary failure of the processor";
+			comment => "Happen once a day and likely recover quickly";
+		])
+		applies to FailureTransient;
+**};
+end generic_processor;
+
+system MooN
+features
+	------------------------------ in ports ------------------------------------------------------
+	RSD_closed 									: in data port Base_Types::Boolean;
+	PSD_closed 									: in data port Base_Types::Boolean;
+	No_intercom_call 							: in data port Base_Types::Boolean;
+	RSD_enabled_by_project_specific_conditions 	: in event data port Base_Types::Boolean;
+	PSD_enabled_by_project_specific_condition	: in event data port Base_Types::Boolean;
+	Train_safely_imobilized 					: in data port Base_Types::Boolean;
+	Train_length 								: in data port Base_Types::Float;
+	Whole_train_location						: in data port;
+	RSD_PEZ										: in data port;
+	PEZ_descriptions 							: in data port;
+	minimum_width_for_passenger_exchange		: in data port Base_Types::Float;
+	PSD_control_survival_time 					: in data port time;
+	RSD_control_survival_time 					: in data port time;
+	RSD_open_command 							: in event data port Base_Types::Boolean;
+	PSD_open_command 							: in event data port Base_Types::Boolean;
+	Start_to_stop_data 							: in data port Start_to_stop_data_for_passenger_exchange;
+	Start_to_stop_mission_accomplished 			: in data port Base_Types::Boolean;
+	Current_Date					   			: in data port time;
+	CTC_in_automatic_mode 			   			: in data port Base_Types::Boolean;
+	Whole_train_RSD_states						: in data port Whole_train_RSD_states;
+	Whole_PEZ_PSD_states						: in data port;
+	Current_plaform 							: in data port;
+--	------------------------------ out ports ------------------------------------------------------
+	Whole_train_RSD_non_vital_commands 	: out data port;
+	Whole_train_RSD_warnings			: out data port;
+	Whole_PEZ_PSD_non_vital_commands 	: out data port;
+	Whole_PEZ_PSD_warnings 				: out data port;
+	Passenger_exchange_data_for_ATS 	: out data port Base_Types::Boolean;
+	Passenger_exchange_data_for_logger 	: out data port;
+	Departure_authorization 			: out data port Base_Types::Boolean;
+	RSD_enabled 						: in out event data port Base_Types::Boolean;
+	PSD_enabled 						: out event data port Base_Types::Boolean;
+	RSD_PSD_correspondance 				: in out data port;
+end MooN;
+
+system implementation MooN.i
+subcomponents
+	--------------------------------- Hardware subcomponents -------------------------------------------
+	gw1 : device gateway.i;
+	gw2 : device gateway.i;
+	
+	a : processor generic_processor;
+	b : processor generic_processor;
+	a_prim : processor generic_processor;
+	b_prim : processor generic_processor;
+	
+	ethernet : bus ethernet;
+	g_bus_koon_1  : bus generic_bus.i;
+	g_bus_koon_2  : bus generic_bus.i;
+	
+	--------------------------------- Software subcomponents -------------------------------------------
+	-- SIL4
+	Give_current_PEZ_description_for_doors_enabled_computation 	: process Give_current_PEZ_description_for_doors_enabled_computation;
+	Determine_RSD_and_PSD_correpondance_by_alignement 			: process Determine_RSD_and_PSD_correpondance_by_alignement;
+	Determine_RSD_enabled_by_inclusion_in_PEZ					: process Determine_RSD_enabled_by_inclusion_in_PEZ;
+	Determine_departure_authorization							: process Determine_departure_authorization;
+	Determine_doors_enabled										: process Determine_doors_enabled;
+	-- SIL00
+	Passenger_exchange_data_logger								: process Passenger_exchange_data_logger;
+	-- SIL01
+	Passenger_exchange_interface_with_ATS						: process Passenger_exchange_interface_with_ATS;
+	Check_passenger_exchange_start_conditions					: process Check_passenger_exchange_start_conditions;
+	Determine_time_of_departure									: process Determine_time_of_departure;
+	Passenger_exchange_workplan_executor						: process Passenger_exchange_workplan_executor;
+	Passenger_exchange_workplan_generator						: process Passenger_exchange_workplan_generator;
+--	
+	
+connections
+	c0 : bus access gw1.gw_to_gw <-> ethernet;	
+	c1 : bus access gw1.gw_koon <-> g_bus_koon_1;
+	c2 : bus access gw1.gw_koon <-> g_bus_koon_1;
+	c4 : bus access a.ba <-> g_bus_koon_1;
+	c5 : bus access b.ba <-> g_bus_koon_1;
+
+	c6 : bus access gw2.gw_to_gw <-> ethernet;
+	c7 : bus access gw2.gw_koon <-> g_bus_koon_2;
+	c8 : bus access gw2.gw_koon <-> g_bus_koon_2;
+	c9 : bus access a_prim.ba <-> g_bus_koon_2;
+	c10 : bus access b_prim.ba <-> g_bus_koon_2;
+
+------------- ports --------------------------------------------------
+
+------------- gw1 -> gw2 -> a_prim------------------------------------
+	c11 : port gw1.outed -> gw2.p_in;
+	c12 : port gw2.outed -> a_prim.p_in;
+
+------------- gw2 -> gw1 -> a------------------------------------
+	c13 : port gw2.outed -> gw1.p_in;
+	c14 : port gw1.outed -> a.p_in;
+
+	-- vital controller connections
+	cnx15  : port PEZ_descriptions -> Give_current_PEZ_description_for_doors_enabled_computation.PEZ_description;
+	cnx16  : port Current_plaform -> Determine_RSD_enabled_by_inclusion_in_PEZ.PEZ_description_for_doors_enabled_computation;
+	cnx17  : port RSD_PEZ -> Determine_RSD_enabled_by_inclusion_in_PEZ.RSD_PEZ;
+	cnx18  : port RSD_PEZ -> Determine_RSD_and_PSD_correpondance_by_alignement.RSD_PEZ;
+	cnx19  : port RSD_PEZ -> Determine_departure_authorization.RSD_PEZ;
+    cnx20  : port Train_length -> Determine_RSD_and_PSD_correpondance_by_alignement.Train_length;
+    cnx21 : port minimum_width_for_passenger_exchange -> Determine_RSD_and_PSD_correpondance_by_alignement.minimum_width_for_passenger_exchange;
+    cnx22 : port PSD_enabled_by_project_specific_condition -> Determine_doors_enabled.PSD_enabled_by_project_specific_condition;
+    cnx23 : port RSD_enabled_by_project_specific_conditions -> Determine_doors_enabled.RSD_enabled_by_project_specific_conditions;
+    cnx24 : port RSD_closed -> Determine_departure_authorization.RSD_closed;
+    cnx25 : port PSD_closed -> Determine_departure_authorization.PSD_closed;
+	cnx26 : port PSD_control_survival_time -> Determine_departure_authorization.PSD_control_survival_time;
+	cnx27 : port Determine_departure_authorization.Departure_authorization -> Departure_authorization;
+	cnx28 : port Train_safely_imobilized -> Determine_doors_enabled.Train_safely_imobilized;
+	-------------------------------link with the non vital controller-----------------------------------------------
+	cnx29 : port Determine_RSD_and_PSD_correpondance_by_alignement.RSD_PSD_correspondance -> RSD_PSD_correspondance;
+	----------------------------------------------------------------------------------------------------------------
+	cnx30 : port Determine_doors_enabled.PSD_enabled -> PSD_enabled;
+	cnx31 : port Determine_doors_enabled.RSD_enabled -> RSD_enabled;			
+	cnx32 : port Give_current_PEZ_description_for_doors_enabled_computation.PEZ_description_for_doors_enabled_computation -> Determine_RSD_and_PSD_correpondance_by_alignement.PSD_PEZ;
+	cnx33 : port Give_current_PEZ_description_for_doors_enabled_computation.PEZ_description_for_doors_enabled_computation -> Determine_departure_authorization.PSD_PEZ;
+	cnx34 : port Give_current_PEZ_description_for_doors_enabled_computation.PEZ_description_for_doors_enabled_computation -> Determine_doors_enabled.PEZ_description_for_doors_enabled_computation;
+	cnx35 : port Determine_RSD_enabled_by_inclusion_in_PEZ.RSD_enabled_by_inclusion_in_platform -> Determine_doors_enabled.RSD_enabled_by_inclusion_in_platform;
+	cnx36 : port Determine_RSD_and_PSD_correpondance_by_alignement.RSD_PSD_correspondance -> Determine_doors_enabled.RSD_PSD_correspondance;
+	cnx37 : port Determine_doors_enabled.PSD_enabled -> Determine_departure_authorization.PSD_enabled; 
+
+--	-- Non vital controller connections
+	cnx38 : port Start_to_stop_data-> Determine_time_of_departure.Start_to_stop_data; 
+	cnx39 : port Start_to_stop_data-> Passenger_exchange_data_logger.Start_to_stop_data; 
+	cnx40 : port Start_to_stop_data-> Check_passenger_exchange_start_conditions.Start_to_stop_data; 
+	cnx41 : port Start_to_stop_mission_accomplished-> Check_passenger_exchange_start_conditions.Start_to_stop_mission_accomplished; 
+	cnx42 : port RSD_enabled-> Check_passenger_exchange_start_conditions.RSD_enabled; 
+	cnx43 : port CTC_in_automatic_mode -> Check_passenger_exchange_start_conditions.CTC_in_automatic_mode;
+	cnx44 : port Current_Date -> Passenger_exchange_workplan_executor.Current_Date;
+ 	cnx45 : port Whole_train_RSD_states -> Passenger_exchange_workplan_executor.Whole_train_RSD_states;
+ 	cnx46 : port Whole_PEZ_PSD_states -> Passenger_exchange_workplan_executor.Whole_PEZ_PSD_states;
+ 	cnx47 : port Passenger_exchange_workplan_executor.Whole_train_RSD_non_vital_commands -> Whole_train_RSD_non_vital_commands;
+ 	cnx48 : port Passenger_exchange_workplan_executor.Whole_train_RSD_warnings -> Whole_train_RSD_warnings;
+ 	cnx49 : port Passenger_exchange_workplan_executor.Whole_PEZ_PSD_non_vital_commands -> Whole_PEZ_PSD_non_vital_commands;
+ 	cnx50 : port Passenger_exchange_workplan_executor.Whole_PEZ_PSD_warnings -> Whole_PEZ_PSD_warnings;
+	cnx51 : port Passenger_exchange_interface_with_ATS.All_RSD_closed-> Passenger_exchange_data_for_ATS;
+	cnx52 : port Passenger_exchange_interface_with_ATS.RSD_opening_failure_warning-> Passenger_exchange_data_for_ATS;
+	cnx53 : port Passenger_exchange_interface_with_ATS.PSD_opening_failure_warning-> Passenger_exchange_data_for_ATS;
+	cnx54 : port Passenger_exchange_interface_with_ATS.RSD_closing_failure_warning-> Passenger_exchange_data_for_ATS;
+	cnx55 : port Passenger_exchange_interface_with_ATS.PSD_closing_failure_warning-> Passenger_exchange_data_for_ATS;
+	cnx56 : port Passenger_exchange_data_logger.Passenger_exchange_data_for_logger-> Passenger_exchange_data_for_logger;
+--	-------------------------------link with the non vital controller-----------------------------------------------
+--	cnx57 : port RSD_PSD_correspondance -> Passenger_exchange_workplan_generator.RSD_PSD_correspondance;
+--	------------------------------------------------------------------------------
+	cnx58 : port Check_passenger_exchange_start_conditions.Carry_out_passenger_exchange -> Determine_time_of_departure.Carry_out_passenger_exchange;
+	cnx59 : port Check_passenger_exchange_start_conditions.Carry_out_passenger_exchange -> Passenger_exchange_data_logger.Carry_out_passenger_exchange;
+	cnx60 : port Check_passenger_exchange_start_conditions.Carry_out_passenger_exchange -> Passenger_exchange_workplan_executor.Carry_out_passenger_exchange;
+	cnx61 : port Determine_time_of_departure.Time_of_departure -> Passenger_exchange_workplan_generator.Time_of_departure;
+	cnx62 : port Passenger_exchange_workplan_generator.Passenger_exchange_workplan -> Passenger_exchange_workplan_executor.Passenger_exchange_workplan;
+	cnx63 : port Passenger_exchange_workplan_executor.Whole_train_RSD_non_vital_commands -> Passenger_exchange_data_logger.Whole_train_RSD_non_vital_commands;
+	cnx64 : port Passenger_exchange_workplan_executor.Whole_train_RSD_warnings -> Passenger_exchange_interface_with_ATS.Whole_train_RSD_warnings;
+ 	cnx65 : port Passenger_exchange_workplan_executor.Whole_PEZ_PSD_non_vital_commands -> Passenger_exchange_data_logger.Whole_PEZ_PSD_non_vital_commands;
+ 	cnx66 : port Passenger_exchange_workplan_executor.Whole_PEZ_PSD_warnings -> Passenger_exchange_interface_with_ATS.Whole_PEZ_PSD_warnings;
+	
+flows
+	etef0 : end to end flow gw1.FlowSource -> c11 -> gw2.FlowPath  -> c12 -> a_prim.FlowSink; 
+	etef1 : end to end flow gw2.FlowSource -> c13 -> gw1.FlowPath  -> c14 -> a.FlowSink; 
+properties
+	latency => 20 ms .. 30 ms applies to etef0, etef1;
+annex EMV2 {**
+	-- The composite error behavior is used to make the RBD evaluation.
+	-- It uses the conditions of the states section below
+	-- and uses the properties declared in the same section (the fixed values)
+	use behavior architecture_errlib::Simple;
+	composite error behavior
+	states
+	
+		[(gw1.Operational and gw2.Operational ) or (gw1.Operational and (a.Operational or b.Operational)) or (gw2.Operational and (a_prim.Operational or b_prim.Operational))]-> Operational;
+		[gw1.Failed and gw2.Failed ]-> Failed;
+		[(a.Failed and b.Failed and a_prim.Failed) or (a.Failed and b.Failed and b_prim.Failed) or (a.Failed and a_prim.Failed and b_prim.Failed) or (b.Failed and b_prim.Failed and a_prim.Failed)]-> Failed;
+		
+	end composite;
+		properties 
+		
+		--  The following values are used rather for the RDB
+		--  They are not used by PRISM itself
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.00003 ; Distribution => Fixed;] applies to gw1.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.00003 ; Distribution => Fixed;] applies to gw2.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.0001 ; Distribution => Fixed;] applies to a.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.0001 ; Distribution => Fixed;] applies to a_prim.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.0001 ; Distribution => Fixed;] applies to b.Failed;
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 0.0001 ; Distribution => Fixed;] applies to b_prim.Failed;
+
+**};
+end MooN.i;
+
+end fsf_model;

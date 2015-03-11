@@ -1,0 +1,306 @@
+package simplified_example
+public
+with EMV2;
+with Base_Types;
+
+-----------------------------------------------------------------------
+----------------------------- Data ------------------------------------
+-----------------------------------------------------------------------
+
+data timedata
+end timedata;
+
+bus generic_bus
+properties
+	Transmission_Time => [ Fixed => 10ms .. 80ms;
+	PerByte => 20 us .. 30 us; ];
+end generic_bus;
+
+-----------------------------------------------------------------------
+----------------------------- Processor -------------------------------
+-----------------------------------------------------------------------
+
+processor core
+features
+	net : requires bus access generic_bus;
+end core;
+
+processor implementation core.i
+annex EMV2 {**
+	use types ErrorLibrary;
+	use behavior architecture_errlib::Simple;
+	properties
+	    --  The following properties are used to fill the PRISM model
+	    --  The value here corresponds to lambda_s in the PRISM model
+	    --  lamba_s = 1/(12*30*24*60*60)
+	    --  from the specifications, it corresponds to 1 fault per month
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.2150205761316875e-8 ; Distribution => Poisson;] applies to Failure;
+		EMV2::severity => 1 applies to Failure;
+
+		EMV2::likelihood => C applies to Failure;
+		EMV2::hazards => 
+		([	crossreference => "X.X.X.X";
+			failure => "Loss of cores";
+			phases => ("all");
+			description => "No position readings due to core failure";
+			comment => "critical error";
+		])
+		applies to Failure;
+		
+		EMV2::severity => 1 applies to Failed;
+		EMV2::likelihood => A applies to Failed;
+		EMV2::hazards => 
+		([	crossreference => "A.A.A";
+			failure => "core in a failure state";
+			phases => ("all");
+			description => "Failure of core";
+			comment => "Likely happen once a year";
+		])
+		applies to Failed;
+
+**};
+end core.i;
+
+-----------------------------------------------------------------------
+----------------------------- Threads ---------------------------------
+-----------------------------------------------------------------------
+--
+--thread task_sil0
+--features
+----	pin : in event data port timedata{ Queue_Size => 0; };
+--	pout : out event data port timedata;
+--flows
+--	flow_thread : flow source pout;
+----	flow_thread : flow source pout { latency => 0 ms .. 45 ms;};
+--properties
+--	period => 50 ms;
+--	deadline => 45 ms;
+--	Compute_Execution_Time => 6ms .. 10ms;
+--end task_sil0;
+--
+--
+--thread task_sil1
+--features
+--	pin : in event data port timedata;
+--	pout : out event data port timedata;
+--flows
+--	flow_thread : flow path pin -> pout { latency => 0 ms .. 70 ms;};
+--properties
+--	period => 100 ms;
+--	deadline => 70 ms;
+--	Compute_Execution_Time => 15ms .. 23ms;
+--end task_sil1;
+--
+--
+--thread task_sil4
+--features
+--	pin : in event data port timedata;
+----	pout : out event data port timedata;
+--flows
+--	flow1: flow sink pin;
+--properties
+--	period => 30 ms;
+--	deadline => 25 ms;
+--	Compute_Execution_Time => 3ms .. 6ms;
+--end task_sil4;
+
+-----------------------------------------------------------------------
+----------------------------- Threads Impl ----------------------------
+-----------------------------------------------------------------------
+
+--thread implementation task_sil0.i
+--flows
+--	flow_thread : flow source pout;
+--properties
+--	Dispatch_Protocol => Periodic;
+--end task_sil0.i;
+--
+--
+--
+--thread implementation task_sil1.i
+--flows
+--	flow1: flow path pin -> pout;
+--properties
+--	Dispatch_Protocol => Periodic;
+--end task_sil1.i;
+--
+--thread implementation task_sil4.i
+--flows
+--	flow1: flow sink pin -> pout;
+--properties
+--	Dispatch_Protocol => Periodic;
+--end task_sil4.i;
+
+-----------------------------------------------------------------------
+----------------------------- Process ---------------------------------
+-----------------------------------------------------------------------
+
+process sil_00
+features
+--	pin : in event data port timedata;
+	pout : out data port;
+flows
+	flow_sil0: flow source pout;
+properties
+	latency => 1 ms .. 3 ms applies to flow_sil0;
+end sil_00;
+
+process sil_01
+features
+	pin : in data port;
+	pout : out data port;
+flows
+	flow_sil1: flow path pin -> pout;
+properties
+	latency => 3 ms .. 4 ms applies to flow_sil1;	
+end sil_01;
+
+process sil_4
+features
+	pin : in data port;
+--	pout : in event data port timedata;
+flows
+	flow_sil4: flow sink pin;
+properties
+	latency => 5 ms .. 7 ms applies to flow_sil4;
+end sil_4;
+
+------------------------------------------------------------------------------
+------------------------------Process Impl------------------------------------
+------------------------------------------------------------------------------
+
+process implementation sil_00.i
+--subcomponents
+--	thread_sil0 : thread task_sil0.i;
+--connections
+--	cout : port thread_sil0.pout -> pout;
+--flows
+--	flow_sil: flow source thread_sil0.flow1 -> cout -> pout;
+end sil_00.i;
+
+process implementation sil_01.i
+--subcomponents
+--	thr : thread task_sil1.i;
+--connections
+--	cin : port pin -> thr.pin;
+--	cout : port thr.pout -> pout;
+--flows
+--	flow1: flow path pin -> cin -> thr.flow1 -> cout -> pout;
+annex EMV2 {**
+	use types ErrorLibrary;
+	use behavior architecture_errlib::Simple;
+	properties
+	    --  The following properties are used to fill the PRISM model
+	    --  The value here corresponds to lambda_s in the PRISM model
+	    --  lamba_s = 1/(2*7*24*60*60)
+	    --  from the specifications, it corresponds to 1 fault per two week
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 8.267195767195768e-7 ; Distribution => Poisson;] applies to Failure;
+		EMV2::severity => 2 applies to Failure;
+
+		EMV2::likelihood => B applies to Failure;
+		EMV2::hazards => 
+		([	crossreference => "X.X.X.X";
+			failure => "Loss of sil01 software";
+			phases => ("all");
+			description => "sil01 failure";
+			comment => "important software (sil01 software)";
+		])
+		applies to Failure;
+		
+		EMV2::severity => 2 applies to Failed;
+		EMV2::likelihood => B applies to Failed;
+		EMV2::hazards => 
+		([	crossreference => "A.A.A";
+			failure => "sil01 in failure state";
+			phases => ("all");
+			description => "Failure of sil01 software";
+			comment => "Likely happen once each two weeks";
+		])
+		applies to Failed;
+
+**};
+end sil_01.i;
+
+process implementation sil_4.i
+--subcomponents
+--thr : thread task_sil4.i;
+--connections
+--	cin : port pin -> thr.pin;
+--	cout : port thr.pout -> pout;
+--flows
+--	flow1: flow sink pin -> cin -> thr.flow1;
+annex EMV2 {**
+	use types ErrorLibrary;
+	use behavior architecture_errlib::Simple;
+	properties
+	    --  The following properties are used to fill the PRISM model
+	    --  The value here corresponds to lambda_s in the PRISM model
+	    --  lamba_s = 1/(30*24*60*60)
+	    --  from the specifications, it corresponds to 1 fault per month
+		EMV2::OccurrenceDistribution => [ ProbabilityValue => 3.8580246913580245e-7; Distribution => Poisson;] applies to Failure;
+		EMV2::severity => 1 applies to Failure;
+
+		EMV2::likelihood => A applies to Failure;
+		EMV2::hazards => 
+		([	crossreference => "X.X.X.X";
+			failure => "Loss of sil4 software";
+			phases => ("all");
+			description => "sil04 failure";
+			comment => "critical software (sil01 software) failure";
+		])
+		applies to Failure;
+		
+		EMV2::severity => 1 applies to Failed;
+		EMV2::likelihood => A applies to Failed;
+		EMV2::hazards => 
+		([	crossreference => "A.A.A";
+			failure => "sil4 in failure state";
+			phases => ("all");
+			description => "Failure of sil4 software";
+			comment => "Likely happen once each month";
+		])
+		applies to Failed;
+
+**};
+end sil_4.i;
+
+-----------------------------------------------------------------------
+-------------------------- System -------------------------------------
+-----------------------------------------------------------------------
+
+system main
+end main;
+
+system implementation main.i
+subcomponents
+	sil00 : process sil_00.i;
+	sil1 : process sil_01.i;	
+	sil4 : process sil_4.i;
+	------------------------------------------		
+	a_core_1 : processor core.i;
+	a_core_2 : processor core.i;
+	a_core_3 : processor core.i;
+--	a_core_4 : processor core.i;	
+	------------------------------------------
+	processor_generic_bus : bus generic_bus;
+	
+connections
+	compute1: port sil00.pout -> sil1.pin;
+	compute2: port sil1.pout-> sil4.pin;
+	b1 : bus access a_core_1.net <-> processor_generic_bus;
+	b2 : bus access a_core_2.net <-> processor_generic_bus;
+	b3 : bus access a_core_3.net <-> processor_generic_bus;
+--	b4 : bus access a_core_4.net <-> processor_generic_bus;
+	
+flows
+	etelatency: end to end flow sil00.flow_sil0 -> compute1 -> sil1.flow_sil1 -> compute2 -> sil4.flow_sil4;
+properties
+      Actual_Processor_Binding => (reference(a_core_1)) applies to sil00;
+      Actual_Processor_Binding => (reference(a_core_2)) applies to sil1;
+      Actual_Processor_Binding => (reference(a_core_1)) applies to sil4;
+      
+      Actual_connection_binding => (reference (processor_generic_bus)) applies to b1;
+	  Actual_connection_binding => (reference (processor_generic_bus)) applies to b2;
+end main.i;
+
+end simplified_example;
